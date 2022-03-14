@@ -1,11 +1,14 @@
 import React from "react";
-import { routes } from "../../constant";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const Navbar = () => {
+import { FaBars } from "react-icons/fa";
+const Navbar = ({ toggleDrawer, routes }) => {
   return (
     <SNavbar>
       <NavContainer>
+        <DrawerButton onClick={toggleDrawer}>
+          <FaBars />
+        </DrawerButton>
         <SNavbarBrand>LOGO</SNavbarBrand>
         <RightNav>
           <NavRoutes>
@@ -14,8 +17,8 @@ const Navbar = () => {
                 {route.name}
               </NavRoute>
             ))}
-            <LoginButton>Login</LoginButton>
           </NavRoutes>
+          <LoginButton>Login</LoginButton>
         </RightNav>
       </NavContainer>
     </SNavbar>
@@ -24,10 +27,20 @@ const Navbar = () => {
 
 export default Navbar;
 
+const DrawerButton = styled.button`
+  all: unset;
+  font-size: 3rem;
+  display: grid;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
 const SNavbar = styled.nav`
   background-color: #6f07f6;
 `;
 const NavContainer = styled.div`
+  padding: 1rem;
   height: 70px;
   max-width: 1300px;
   margin: 0 auto;
@@ -39,8 +52,14 @@ const NavContainer = styled.div`
 const SNavbarBrand = styled.h2`
   font-size: 3rem;
 `;
-const RightNav = styled.div``;
+const RightNav = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
 const NavRoutes = styled.div`
+  @media (max-width: 768px) {
+    display: none;
+  }
   display: flex;
   gap: 1rem;
   font-size: 2rem;
