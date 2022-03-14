@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import Menu from "./Menu";
 const Navbar = ({ toggleDrawer, routes }) => {
   return (
     <SNavbar>
@@ -12,11 +13,16 @@ const Navbar = ({ toggleDrawer, routes }) => {
         <SNavbarBrand>LOGO</SNavbarBrand>
         <RightNav>
           <NavRoutes>
-            {routes.map((route) => (
-              <NavRoute to={route.link} key={route.name}>
-                {route.name}
-              </NavRoute>
-            ))}
+            {routes.map((route) => {
+              if (route.subRoutes) {
+                return <Menu route={route} key={route.name} />;
+              }
+              return (
+                <NavRoute to={route.link} key={route.name}>
+                  {route.name}
+                </NavRoute>
+              );
+            })}
           </NavRoutes>
           <LoginButton>Login</LoginButton>
         </RightNav>
