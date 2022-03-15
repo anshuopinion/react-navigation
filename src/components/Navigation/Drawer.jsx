@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ExpandMenu from "./ExpandMenu";
 const Drawer = ({ isOpen, toggleDrawer, routes }) => {
   return (
     <>
@@ -8,12 +9,21 @@ const Drawer = ({ isOpen, toggleDrawer, routes }) => {
       <SDrawer isOpen={isOpen}>
         <RightNav>
           <SNavbarBrand>LOGO</SNavbarBrand>
-          <NavRoutes onClick={toggleDrawer}>
-            {routes.map((route) => (
-              <NavRoute to={route.link} key={route.name}>
-                {route.name}
-              </NavRoute>
-            ))}
+          <NavRoutes>
+            {routes.map((route) => {
+              if (route.subRoutes) {
+                return <ExpandMenu route={route} key={route.name} />;
+              }
+              return (
+                <NavRoute
+                  onClick={toggleDrawer}
+                  to={route.link}
+                  key={route.name}
+                >
+                  {route.name}
+                </NavRoute>
+              );
+            })}
           </NavRoutes>
           <LoginButton>Login</LoginButton>
         </RightNav>
